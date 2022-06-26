@@ -6,7 +6,6 @@ import {
 
 import { 
     onAuthStateChangedListener,
-    signOutUser,
     createUserDocumentFromAuth,
 } from '../utils/firebase.utils'
 
@@ -22,10 +21,10 @@ export const UserProvider = ({children})=>{
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChangedListener((user)=>{
-            setCurrentUser(user);
             if(user){
                 createUserDocumentFromAuth(user);
             }
+            setCurrentUser(user);
         });
         return unsubscribe;
     },[])
