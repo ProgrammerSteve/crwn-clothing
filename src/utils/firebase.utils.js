@@ -18,9 +18,14 @@ import{
     getFirestore,
     doc,
     setDoc,
-    getDoc
-} from 'firebase/firestore'
+    getDoc,
 
+    collection, //allow us to get a collection ref
+    writeBatch, //for transactions
+
+    query,
+    getDocs,
+} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 // You can find this info on the firebase website
@@ -41,7 +46,6 @@ const provider= new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account"
 })
-
 
 //native email and password is built into firebase and doesn't need
 //a provider, only the method createUserWithEmailAndPassword
@@ -68,9 +72,6 @@ export const signInWithGooglePopup=()=>{
 export const signInWithGoogleRedirect=()=>{
     return signInWithRedirect(auth,provider);
 }
-
-
-
 
 //instantiated the firestore database
 export const db=getFirestore();
@@ -118,3 +119,39 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 export const signOutUser=async ()=>signOut(auth);
 
 export const onAuthStateChangedListener=(callback)=>onAuthStateChanged(auth,callback);
+
+
+
+
+
+
+// collection and write batch
+export const addCollectionAndDocuments= async(collectionKey, objectsToAdd)=>{
+    const collectionRef = collection(db, collectionKey);
+    const batch= writeBatch(db);
+    objectsToAdd.forEach((object)=>{
+        const docRef=doc(collectionRef,object.title.toLowerCase());
+        batch.set(docRef,object);
+    })
+    await batch.commit();
+    console.log('done');
+
+}
+
+
+//querying data, note: categories is the collectionKey
+export const getCategoriesAndDocuments= async()=>{
+    const collectionRef=collection(db,'categories');
+    const q =query(collectionRef);
+
+    const querySnapshop=await getDocs(q);
+    const categoryMap=querySnapshop.docs.reduce((acc,docSnapshot)=>{
+        const {title,items}=docSnapshot.data();
+        acc[title.toLowerCase()]=items;
+        return acc;
+    },{})
+
+    return categoryMap;
+}
+
+
