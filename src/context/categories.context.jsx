@@ -11,7 +11,7 @@ import {
 import { 
     // addCollectionAndDocuments,
     getCategoriesAndDocuments,
-} from "../utils/firebase.utils";
+} from "../utils/firebase/firebase.utils";
 
 
 export const CategoriesContext=createContext({
