@@ -38,7 +38,6 @@ const SignInForm = ()=>{
         event.preventDefault();
         try{
             const {user}= await signInAuthUserWithEmailAndPassword(email,password);
-            console.log(user);
             restFormFields();
         }catch(error){
             switch(error.code){

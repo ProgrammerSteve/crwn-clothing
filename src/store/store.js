@@ -26,7 +26,7 @@ const loggerMiddleware=(store)=>(next)=>(action)=>{
 
 //3rd parameter in createStore
 const middleWares=[
-    loggerMiddleware,
+    logger,
 ];
 const composeEnhancers=compose(applyMiddleware(...middleWares));
 

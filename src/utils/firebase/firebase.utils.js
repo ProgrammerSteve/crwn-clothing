@@ -91,9 +91,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     console.log('userDocRef:',userDocRef);
 
     const userSnapshot= await getDoc(userDocRef);
-    console.log(userSnapshot);
-    console.log(userSnapshot.exists());
-    
     //checks if user doesn't exist
     //if user does exist on the database this code is ignored
     //if it doesn't exist, name,email and date is inputted

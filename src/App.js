@@ -17,7 +17,6 @@ import {
 import { setCurrentUser } from './store/user/user.action';
 import {
   useDispatch,
-  useSelector,
 } from 'react-redux';
 
 const App=()=>{
@@ -32,7 +31,7 @@ const App=()=>{
         dispatch(setCurrentUser(user));
     });
     return unsubscribe;
-  },[dispatch])
+  },[])
 
   return (
     <Routes>

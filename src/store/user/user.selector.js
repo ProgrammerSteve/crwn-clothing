@@ -1,2 +1,2 @@
 export const selectCurrentUser=(state)=>
-    state.user.selectCurrentUser;
+    state.user.currentUser;
