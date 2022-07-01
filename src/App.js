@@ -12,25 +12,36 @@ import {
 import { 
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
+  getCurrentUser,
 } from './utils/firebase/firebase.utils'
 
-import { setCurrentUser } from './store/user/user.action';
+import { 
+  setCurrentUser, 
+  checkUserSession,
+} from './store/user/user.action';
 import {
   useDispatch,
 } from 'react-redux';
 
 const App=()=>{
-  const dispatch=useDispatch();
-  
 
+
+
+  const dispatch=useDispatch();
+  //redux thunk
+  // useEffect(()=>{
+  //   const unsubscribe = onAuthStateChangedListener((user)=>{
+  //       if(user){
+  //           createUserDocumentFromAuth(user);
+  //       }
+  //       dispatch(setCurrentUser(user));
+  //   });
+  //   return unsubscribe;
+  // },[])
+
+  //redux-saga
   useEffect(()=>{
-    const unsubscribe = onAuthStateChangedListener((user)=>{
-        if(user){
-            createUserDocumentFromAuth(user);
-        }
-        dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
+   dispatch(checkUserSession())
   },[])
 
   return (

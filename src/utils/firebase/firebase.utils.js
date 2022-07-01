@@ -110,7 +110,8 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
             console.log('error creating user', error.message);
         }
     }
-    return userDocRef;
+    // return userDocRef;
+    return userSnapshot;
 }
 
 export const signOutUser=async ()=>signOut(auth);
@@ -152,3 +153,15 @@ export const getCategoriesAndDocuments= async()=>{
 }
 
 
+export const getCurrentUser=()=>{
+    return new Promise((resolve, reject)=>{
+        const unsubscribe=onAuthStateChanged(
+            auth, 
+            (userAuth)=>{
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    })
+}

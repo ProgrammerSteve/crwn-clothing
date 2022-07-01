@@ -3,12 +3,19 @@ import { persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './root-saga';
 
 import { rootReducer } from './root-reducer';
+
+
+const sagaMiddleware=createSagaMiddleware();
+
 
 //3rd parameter in createStore
 const middleWares = [
     process.env.NODE_ENV === 'development' && logger,
+    sagaMiddleware,
     thunk,
   ].filter(Boolean);
 
@@ -33,5 +40,8 @@ const composeEnhancers=composeEnhancer(applyMiddleware(...middleWares));
 
 export const store =
     createStore(persistedReducer,undefined,composeEnhancers);
+
+//after store is instantiated, we run the sagaMiddleware
+sagaMiddleware.run(rootSaga);
 
 export const persistor=persistStore(store);
