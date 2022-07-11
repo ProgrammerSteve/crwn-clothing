@@ -9,8 +9,8 @@ import {
 
 
 export type CartState={
-    isCartOpen: boolean;
-    cartItems:CartItem[];
+    readonly isCartOpen: boolean;
+    readonly cartItems:CartItem[];
 }
 
 

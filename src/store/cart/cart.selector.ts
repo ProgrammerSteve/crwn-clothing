@@ -1,8 +1,9 @@
 import {createSelector} from 'reselect';
 import { CartState } from './cart.reducer';
+import { RootState } from '../store';
 
 //getting slice of root reducer
-const selectCartReducer=(state):CartState=>state.cart;
+const selectCartReducer=(state:RootState):CartState=>state.cart;
 
 //a memoized way of selecting cartitems and iscartopen
 export const selectCartItems= createSelector(

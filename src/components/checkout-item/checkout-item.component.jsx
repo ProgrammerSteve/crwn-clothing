@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import { CartContext } from '../../context/cart.context';
-
 import{
     CheckoutItemContainer,
     ImageContainer,
@@ -11,7 +8,7 @@ import{
     Value,
     Arrow,
     RemoveButton,
-} from './checkout-item.styles.jsx';
+} from './checkout-item.styles';
 
 import {useSelector,useDispatch} from 'react-redux';
 import{

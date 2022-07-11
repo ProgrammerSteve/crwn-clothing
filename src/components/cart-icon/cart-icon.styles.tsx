@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import {ReactComponent as Icon} from '../../assets/shopping-bag.svg';
+//tsconfig needs to be told to include checking for alternative file types
+//declare a global type
 
 export const CartIconContainer=styled.div`
   width: 45px;
